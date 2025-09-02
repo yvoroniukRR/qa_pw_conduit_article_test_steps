@@ -2,7 +2,7 @@ import { test } from '@playwright/test';
 import { SignUpPage } from '../../src/pages/SignUpPage';
 import { HomePage } from '../../src/pages/HomePage';
 import { CreateArticlePage } from '../../src/pages/CreateArticlePage';
-import { faker } from '@faker-js/faker';
+import { ar, faker } from '@faker-js/faker';
 
 let homePage;
 let createArticlePage;
@@ -26,12 +26,14 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Create an article with required and optional fields', async () => {
+test('Create an article without article tag', async () => {
+  const articleTitle = 'This is my test';
   await homePage.clickNewArticleLink();
 
-  await createArticlePage.fillArticleTitleField('This is my test');
+  await createArticlePage.fillArticleTitleField(articleTitle);
   await createArticlePage.fillArticleAboutField('This article is about my test 65362.');
   await createArticlePage.fillArticleBodyField('The article is gonna be very interesting.');
 
   await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertTitleIsVisible(articleTitle);
 });

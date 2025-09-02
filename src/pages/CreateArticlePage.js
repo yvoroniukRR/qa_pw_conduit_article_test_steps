@@ -25,6 +25,12 @@ export class CreateArticlePage {
     });
   }
 
+  async assertTitleIsVisible(articleTitle) {
+    await test.step(`Assert the article with title '${articleTitle}' is opened`, async () => {
+      await expect(this.page.getByRole('heading', { name: articleTitle })).toBeVisible();
+    });
+  }
+
   async fillArticleTitleField(articleTitle) {
     await test.step(`Fill the 'Article Title' field with '${articleTitle}'`, async () => {
       await this.articleTitleField.fill(articleTitle);

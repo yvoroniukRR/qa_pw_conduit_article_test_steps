@@ -27,12 +27,14 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Create an article with required and optional fields', async () => {
+  const articleTitle = 'This is my test';
   await homePage.clickNewArticleLink();
 
-  await createArticlePage.fillArticleTitleField('This is my test');
+  await createArticlePage.fillArticleTitleField(articleTitle);
   await createArticlePage.fillArticleAboutField('This article is about my test 65362.');
   await createArticlePage.fillArticleBodyField('The article is gonna be very interesting.');
   await createArticlePage.fillArticleTagsField('interesting');
 
   await createArticlePage.clickPublishArticleButton();
+  await createArticlePage.assertTitleIsVisible(articleTitle);
 });
